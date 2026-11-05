@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #070b16;
+  --color-navy-900: #0b1120;
+  --color-navy-800: #131c33;
+  --color-gold: #c9a227;
+  --color-gold-light: #e6c65c;
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-navy-950 text-slate-300 font-sans antialiased;
+  margin: 0;
+}
+@keyframes drift {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: var(--o, 0.6); }
+  90%  { opacity: var(--o, 0.6); }
+  100% { transform: translate(var(--dx, 20px), -110vh); opacity: 0; }
+}
+
+@keyframes orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(40px, -30px) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.halo-ring {
+  background: conic-gradient(from 0deg, transparent 0%, transparent 55%, rgba(201, 162, 39, 0.95) 100%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
+  animation: spin-slow 16s linear infinite;
+}
+
+/* Chatbot scroll */
+#chatbot-panel [aria-live] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,162,39,0.2) transparent;
+}
+#chatbot-panel [aria-live]::-webkit-scrollbar {
+  width: 4px;
+}
+#chatbot-panel [aria-live]::-webkit-scrollbar-track {
+  background: transparent;
+}
+#chatbot-panel [aria-live]::-webkit-scrollbar-thumb {
+  background-color: rgba(201,162,39,0.25);
+  border-radius: 4px;
+}
+
+/* Gold shimmer keyframe (used by HeroPhoto and GlowCard) */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-110%) skewX(-20deg); opacity: 0; }
+  30%  { opacity: 0.6; }
+  70%  { opacity: 0.6; }
+  100% { transform: translateX(110%) skewX(-20deg); opacity: 0; }
+}
+:focus-visible {
+  outline: 2px solid #e6c65c;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
